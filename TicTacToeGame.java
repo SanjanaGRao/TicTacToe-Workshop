@@ -76,6 +76,8 @@ public class TicTacToeGame {
 	
 	/*
 	 * UseCase 5 - Ability to check for the free space before making the desired move
+	 * The'if...else' here checks if the particular index is available or not, if it is available,the user input goes there
+	 * If not, message is displayed and the user needs to repeat his turn again.
 	 */
 	public static void userMove()
 	{
