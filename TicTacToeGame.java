@@ -72,7 +72,23 @@ public class TicTacToeGame {
 		{
 			System.out.println("Please enter a valid index number from 1-9. ");
 		}
-		sc.close();
+	}
+	
+	/*
+	 * UseCase 5 - Ability to check for the free space before making the desired move
+	 */
+	public static void userMove()
+	{
+		if(board[indexNumber] == ' ')
+			{
+				board[indexNumber] = userOption;				
+			}
+		else
+			{
+				System.out.println("Sorry, Enter a different index number, this index number is not available."); 
+				userIndexValue();
+			}
+	 showBoard();
 	}
 	
 	public static void main(String[] args) {
@@ -82,6 +98,7 @@ public class TicTacToeGame {
 		chooseOption();
 		showBoard();
 		userIndexValue();
+		userMove();
 	}
 
 }
