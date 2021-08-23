@@ -43,11 +43,24 @@ public class TicTacToeGame {
 		sc.close();
 	}
 	
+	//Method to display the board
+	public static void showBoard()
+	{
+		System.out.println("\n------------- ");
+		for(int i = 1 ; i<10 ; i+=3)
+		{
+			System.out.println("| " + board[i] + " | " + board[i+1] + " | " + board[i+2] + " |");
+			System.out.println("------------- ");
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Tic Tac Toe \n");
 		createBoard();		
 		chooseOption();
+		showBoard();
 	}
 
 }
