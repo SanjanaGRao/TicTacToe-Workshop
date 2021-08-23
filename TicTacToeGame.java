@@ -2,12 +2,14 @@ package TicTacToeWorkshop;
 
 public class TicTacToeGame {
 	
-	private char[] board = new char[10];
-	//UseCase 1
-	public void createBoard() 
+	private static int length = 10;
+	private static char[] board = new char[10];
+	
+	//UseCase 1 -Creating a board and initializing
+	public static void createBoard() 
 	{
 		
-		for(int i = 1; i<10 ; i++)
+		for(int i = 1; i<length ; i++)
 		{
 			board[i] = ' ';			
 		}
@@ -16,9 +18,8 @@ public class TicTacToeGame {
 	
 	public static void main(String[] args) {
 		
-		TicTacToeGame obj1 = new TicTacToeGame(); //object creation
 		System.out.println("Welcome to Tic Tac Toe \n");
-		obj1.createBoard();
+		createBoard();
 		
 		
 	}
