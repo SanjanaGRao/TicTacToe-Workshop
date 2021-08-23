@@ -1,5 +1,6 @@
 package TicTacToeWorkshop;
 import java.util.Scanner;
+import java.util.Random;
 
 public class TicTacToeGame {
 	
@@ -8,6 +9,9 @@ public class TicTacToeGame {
 	private static char userOption;
 	private static char computerOption;
 	private static int indexNumber;
+	public static Random rand = new Random(); // @rand to check if User play's first or Computer using coin tossing
+	public static char turnToPlay; //@turnToPlay to check who is playing - the user or the system
+	public static int flag = 0; //@param flag is used to monitor if the game is starting first time or not
 	
 	//UseCase 1 -Creating a board and initializing
 	public static void createBoard() 
@@ -81,24 +85,66 @@ public class TicTacToeGame {
 	 */
 	public static void userMove()
 	{
-		if(board[indexNumber] == ' ')
+		if(board[indexNumber] == ' ' && flag == 1) // this is when the user and computer are playing for the first time
 			{
-				board[indexNumber] = userOption;				
+				if(turnToPlay == 'P')
+				{
+					board[indexNumber] = userOption;
+					flag = 0;
+				}
+				else
+				{
+					board[indexNumber] = computerOption;
+					flag = 0;
+				}
 			}
+		else if(board[indexNumber] == ' ')
+		{
+			board[indexNumber] = userOption;
+		}
 		else
 			{
 				System.out.println("Sorry, Enter a different index number, this index number is not available."); 
 				userIndexValue();
+				userMove();
 			}
 	 showBoard();
+	}
+	
+	/* UseCase 6 - Asking if the User would like to do a toss to check who plays first.
+	 * If the user chooses Heads i.e, 0, and the @param headOrTail gives the result as 1, user plays
+	 * Else,computer starts.
+	 * @param flag is set to 1 to indicate that the Computer is starting first
+	 */
+	public static void tossMethod()
+	{
+		System.out.println("Choose Head(0) or Tail(1): ");
+		int userChoice=sc.nextInt();							
+		int headOrTail = rand.nextInt(2);						
+		if(userChoice==headOrTail)
+		{
+			System.out.println("Player's Turn.");
+			turnToPlay='P';
+
+		}
+		else
+		{
+			System.out.println("Computer's turn");
+			turnToPlay='C';
+			indexNumber = rand.nextInt(10);
+			flag = 1;
+			userMove();
+		}
 	}
 	
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Tic Tac Toe \n");
-		createBoard();		
+		createBoard();	
+		turnToPlay = 'P'; //Assuming the User starts first
 		chooseOption();
 		showBoard();
+		tossMethod();
 		userIndexValue();
 		userMove();
 	}
