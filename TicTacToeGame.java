@@ -13,6 +13,10 @@ public class TicTacToeGame {
 	public static char turnToPlay; //@turnToPlay to check who is playing - the user or the system
 	public static int flag = 0; //@param flag is used to monitor if the game is starting first time or not
 	
+	public static int winnerStatus = 0 ;
+	public static int tie = 0 ;
+	public static int changeUserTurn = 0 ;
+	
 	//UseCase 1 -Creating a board and initializing
 	public static void createBoard() 
 	{
@@ -137,6 +141,43 @@ public class TicTacToeGame {
 		}
 	}
 	
+	/* UseCase 7 - As player would expect the Tic Tac Toe App to determine after every move the winner or the tie or change the turn
+	 * This method prints the Game statistics like the Winner, Tie or not and it helps in Changing the turn 
+	 * Swapping is done in order to change the user turns.
+	 */
+	public static void statistics()
+	{
+		if(winnerStatus == 0)
+			System.out.println("Winner: NA");
+		else
+			System.out.println("Winner: ");
+		System.out.println("Tie Games: " + tie);
+		System.out.println("Do you want to change turns? (Y/N):  ");
+		char newUserOption = sc.next().charAt(0); 
+		if(newUserOption == 'y' || newUserOption == 'Y')
+		{
+			if(turnToPlay == 'P')
+			{
+				turnToPlay ='C';
+				//Swapping userOption and ComputerOption
+				int temp = userOption;
+				userOption = computerOption;
+				computerOption = userOption;
+				showBoard();
+			}
+			else
+			{
+				turnToPlay = 'P';
+				//Swapping userOption and ComputerOption
+				int temp = userOption;
+				userOption = computerOption;
+				computerOption = userOption;
+				showBoard();
+			}
+		}// end of 1st if
+		
+	}//end of method statistics
+	
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Tic Tac Toe \n");
@@ -147,6 +188,7 @@ public class TicTacToeGame {
 		tossMethod();
 		userIndexValue();
 		userMove();
+		statistics();
 	}
 
 }
