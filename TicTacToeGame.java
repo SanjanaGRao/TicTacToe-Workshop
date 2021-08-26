@@ -9,14 +9,16 @@ public class TicTacToeGame {
 	private static char userOption;
 	private static char computerOption;
 	private static int indexNumber;
-	public static Random rand = new Random(); // @rand to check if User play's first or Computer using coin tossing
+	public static Random rand = new Random(); // @param rand to check if User play's first or Computer using coin tossing
 	public static char turnToPlay; //@turnToPlay to check who is playing - the user or the system
 	public static int flag = 0; //@param flag is used to monitor if the game is starting first time or not
 	public static int count = 0;//@param count is used for monitoring computers move
 	
 	public static int winnerStatus = 0 ;
-	public static int tie = 0 ;
+	public static int tossWinner = 0 ;
 	public static int changeUserTurn = 0 ;
+	public static int[] arrCorners = {1,3,7,9};
+	public static int[] arrSides = { 2,4,6,8 };
 	
 	//UseCase 1 -Creating a board and initializing
 	public static void createBoard() 
@@ -114,8 +116,6 @@ public class TicTacToeGame {
 				userMove();
 			}
 	 showBoard();
-	 if(count!=0 && board[indexNumber]==' ')
-		 computerMove();
 	}
 	
 	/* UseCase 6 - Asking if the User would like to do a toss to check who plays first.
@@ -131,16 +131,15 @@ public class TicTacToeGame {
 		if(userChoice==headOrTail)
 		{
 			System.out.println("Player's Turn.");
-			turnToPlay='P';
+			tossWinner = 1;
 
 		}
 		else
 		{
 			System.out.println("Computer's turn");
+			tossWinner = 0;
 			turnToPlay='C';
-			indexNumber = rand.nextInt(10);
 			flag = 1;
-			userMove();
 		}
 	}
 	
@@ -154,11 +153,147 @@ public class TicTacToeGame {
 		char newUserOption = sc.next().charAt(0); 
 		if(newUserOption == 'y' || newUserOption == 'Y')
 		{
-			for (int a = 1; a < 9; a++) 
+				if(turnToPlay=='C')
+				{
+					turnToPlay='P';
+					System.out.println("Player's turn to play");
+					userIndexValue();
+					userMove();
+				}
+				else
+				{
+					turnToPlay='C';
+					System.out.println("Computer's turn to play");
+					computerMove();
+				}
+			
+		}// end of 1st if
+		
+	}//end of method statistics
+	
+	/* UseCase 8 - On Computer getting its turn would like the computer to play like me
+	 * 
+	 */
+	private static void computerMove() {
+		if((board[1]==' ')&&(board[2]==board[3] && board[2]==computerOption)||(board[4]==board[7] && board[4]==computerOption)||(board[5]==board[9] && board[5]==computerOption))
+		{
+			board[1] = computerOption;
+			
+		}
+		else if((board[2]==' ')&&(board[1]==board[3] && board[1]==computerOption)||(board[5]==board[8] && board[8]==computerOption))
+		{
+			board[2] = computerOption;
+		}
+		else if((board[3]==' ')&&(board[2]==board[1] && board[2]==computerOption)||(board[5]==board[7] && board[5]==computerOption)||(board[6]==board[9] && board[6]==computerOption))
+		{
+			board[3] = computerOption;		
+		}
+		else if((board[4]==' ')&&(board[1]==board[7] && board[1]==computerOption)||(board[5]==board[6] && board[5]==computerOption))
+		{
+			board[4] = computerOption;	
+		}
+		else if((board[5]==' ')&&(board[2]==board[8] && board[2]==computerOption)||(board[4]==board[6] && board[4]==computerOption)||(board[1]==board[9] && board[9]==computerOption)||(board[7]==board[3] && board[3]==computerOption))
+		{
+			board[5] = computerOption;	
+		}
+		else if((board[6]==' ')&&(board[9]==board[3] && board[3]==computerOption)||(board[4]==board[5] && board[4]==computerOption))
+		{
+			board[6] = computerOption;	
+		}
+		else if((board[7]==' ')&&(board[1]==board[4] && board[1]==computerOption)||(board[5]==board[3] && board[3]==computerOption)||(board[8]==board[9] && board[9]==computerOption))
+		{
+			board[7] = computerOption;	
+		}
+		else if((board[8]==' ')&&(board[2]==board[5] && board[2]==computerOption)||(board[9]==board[7] && board[7]==computerOption))
+		{
+			board[8] = computerOption;	
+		}
+		else if((board[9]==' ')&&(board[6]==board[3] && board[3]==computerOption)||(board[8]==board[7] && board[7]==computerOption)||(board[5]==board[1] && board[5]==computerOption))
+		{
+			board[9] = computerOption;	
+		}
+		
+		//UC9 - To block user from winning
+		else if((board[1]==' ')&&((board[2]==board[3]&&board[2]==userOption)||(board[4]==board[7]&&board[4]==userOption)||(board[5]==board[9]&&board[5]==userOption)))
+		{
+			board[1]=computerOption;
+		}			
+		else if((board[2]==' ')&&((board[1]==board[3]&&board[3]==userOption)||(board[5]==board[8]&&board[8]==userOption)))
+		{
+			board[2]=computerOption;
+		}				
+		else if((board[3]==' ')&&((board[1]==board[2]&&board[2]==userOption)||(board[6]==board[9]&&board[9]==userOption)||(board[5]==board[7]&&board[7]==userOption)))				
+		{
+			board[3]=computerOption;
+		}
+		else if((board[4]==' ')&&((board[1]==board[7]&&board[7]==userOption)||(board[5]==board[6]&&board[6]==userOption)))
+		{
+			board[4]=computerOption;
+		}
+		else if((board[5]==' ')&&((board[1]==board[9]&&board[1]==userOption)||(board[7]==board[3]&&board[7]==userOption)||(board[2]==board[8]&&board[8]==userOption)||(board[4]==board[6]&&board[6]==userOption)))	
+		{
+			board[5]=computerOption;
+		}
+		else if((board[6]==' ')&&((board[9]==board[3]&&board[3]==userOption)||(board[5]==board[4]&&board[4]==userOption)))	
+		{
+			board[6]=computerOption;
+		}
+		else if((board[7]==' ')&&((board[1]==board[4]&&board[4]==userOption)||(board[8]==board[9]&&board[9]==userOption)||(board[5]==board[3]&&board[3]==userOption)))
+		{
+			board[7]=computerOption;
+		}
+		else if((board[8]==' ')&&((board[9]==board[7]&&board[7]==userOption)||(board[2]==board[5]&&board[2]==userOption)))		
+		{
+			board[8]=computerOption;
+		}
+		else if((board[9]==' ')&&((board[1]==board[5]&&board[5]==userOption)||(board[6]==board[3]&&board[3]==userOption)||(board[8]==board[7]&&board[7]==userOption)))
+		{
+			board[9]=computerOption;
+		}			
+		else
+		{
+			//checking for corner values usecase10
+			
+			int flag1 = 0;
+			for(int i=0;i<4;i++)
+			{
+				if(board[arrCorners[i]]==' ')
+					{
+					board[arrCorners[i]]=computerOption;
+					flag1=1;
+					break;
+					}
+			}
+			//checking for center and remaining values usecase11
+			if(flag1==0 )
+				{
+				if(board[5]==' ')
+					board[5]=computerOption;
+				else
+				{
+					
+					for(int i=0;i<4;i++)
+					{
+						if(board[arrSides[i]]==' ')
+							{
+							board[arrSides[i]]=computerOption;
+							break;
+							}
+					}//end of for
+				}
+			}//end of if of UC11
+		}//end of main else
+	}
+	
+	// This method defines the conditions for a win
+		public static char getWinner() {
+			String line = null;
+            
+			//to check if there is an winning situation
+	        for (int a = 1; a < 10; a++) 
 	        {
-	            String line = null;
-	  
-	            switch (a) { 
+	           
+	            switch (a) {
 	            case 1:
 	                line = ""+board[1] + board[2] + board[3];
 	                break;
@@ -175,7 +310,7 @@ public class TicTacToeGame {
 	                line = ""+board[2] + board[5] + board[8];
 	                break;
 	            case 6:
-	                line = ""+board[3] + board[5] + board[9];
+	                line = ""+board[3] + board[6] + board[9];
 	                break;
 	            case 7:
 	                line = ""+board[1] + board[5] + board[9];
@@ -184,91 +319,88 @@ public class TicTacToeGame {
 	                line = ""+board[3] + board[5] + board[7];
 	                break;
 	            }
-	            //For  winner
-	            if (line.equals("XXX")||line.equals("OOO")) {
-	                winnerStatus=1;
-	            }
-	              
-	         }
-	        int i=1;
-	        for(i=1;i<board.length;i++)
-	        {
-	        	if(board[i]==' ')
-	        		break;
+	        //For X winner
+	        if (line.equals("XXX")) {
+	            return 'X';
 	        }
-	        if(i==10)
-	        	tie=1;
-	        if(winnerStatus==1)						//check for winner
-			{
-				if(turnToPlay=='C')
-					System.out.println("Computer has won the game.");
-				else
-					System.out.println("Congratulations, You won the game");
-			}
-			else if(tie==1)								//check for tie
-			{
-				System.out.println( "It's a draw.");
-			}
-			else													//change the turn
-			{
-				if(turnToPlay=='C')
-				{
-					turnToPlay='P';
-					System.out.println("Player's turn to play");
-					userIndexValue();
-					userMove();
-				}
-				else
-				{
-					turnToPlay='C';
-					System.out.println("Computer's turn to play");
-					computerMove();
-				}
-					
-			}
-			
-		}// end of 1st if
+	          
+	        // For O winner
+	        else if (line.equals("OOO")) {
+	            return  'O';
+	        }
+	        }
+	        int check1;	
+	        for (check1 = 1; check1 < 10; check1++) 
+	        {
+		            if (board[check1]==' ') {
+		               break;
+		            }
+	        } 
+	        if(check1==10)
+		            return 't';
+	        	else
+	        		return 'n';
+		}
 		
-	}//end of method statistics
-	
-	/* UseCase 8 - On Computer getting its turn would like the computer to play like me
-	 * 
-	 */
-	public static void computerMove()
-	{
-		count=1;
-		do {
-			occupyCorner();
-		} while (board[indexNumber]!=' ');
-
-		board[indexNumber] = computerOption;
+		//method to display winner
+		public static void displayWinner()
+		    {
+		    	
+		    	
+		       char win=getWinner();
+		        if(win==userOption)
+		        {
+		        	System.out.println("\n Congratulations, You win!");
+		        	winnerStatus=1;
+		        }
+		        else if(win==computerOption)
+		        	{
+		        		System.out.println("\n Computer wins!");
+		        		winnerStatus=1;
+		        	}
+		        else if(win=='t')
+		        {
+		        	System.out.println("TIE.");
+		        	winnerStatus=1;
+		        }
+		    }
+		
+	//helps in defining the game flow
+	public static void gameFlow() {
+		createBoard();	
+		chooseOption();
 		showBoard();
-		userIndexValue();
-		userMove();
-    }    
-        
-	
-
-	private static void occupyCorner() {
+		tossMethod();
 		
-		int[] arr = {1,3,7,9};
-		int corner = rand.nextInt(3);
-		indexNumber = arr[corner];	
-		
-	}
+		while(winnerStatus==0)
+		{
+			
+			if(turnToPlay=='C')
+			{
+				computerMove();
+				showBoard();
+				displayWinner();
+				turnToPlay='P';
+			}
+			else if(turnToPlay=='P') 
+			{
+				userIndexValue();
+				userMove();
+				displayWinner();
+				//showBoard();
+				turnToPlay='C';
+				
+			}
+		}
+		}
 
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Tic Tac Toe \n");
 		createBoard();	
 		turnToPlay = 'P'; //Assuming the User starts first
-		chooseOption();
-		showBoard();
-		tossMethod();
-		userIndexValue();
-		userMove();
-		statistics();
-		computerMove();
+		winnerStatus=0;
+		gameFlow();
 	}
 
 }
