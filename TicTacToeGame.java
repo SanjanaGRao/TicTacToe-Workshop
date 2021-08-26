@@ -14,11 +14,11 @@ public class TicTacToeGame {
 	public static int flag = 0; //@param flag is used to monitor if the game is starting first time or not
 	public static int count = 0;//@param count is used for monitoring computers move
 	
-	public static int winnerStatus = 0 ;
-	public static int tossWinner = 0 ;
+	public static int winnerStatus = 0 ; //@param winnerStatus is used to monitor if the winner has been set or not
+	public static int tossWinner = 0 ;//@param tossWinner tells us who won the toss
 	public static int changeUserTurn = 0 ;
 	public static int[] arrCorners = {1,3,7,9};
-	public static int[] arrSides = { 2,4,6,8 };
+	public static int[] arrSides = {2,4,6,8};
 	
 	//UseCase 1 -Creating a board and initializing
 	public static void createBoard() 
@@ -145,8 +145,8 @@ public class TicTacToeGame {
 	}
 	
 	/* UseCase 7 - As player would expect the Tic Tac Toe App to determine after every move the winner or the tie or change the turn
-	 * This method prints the Game statistics like the Winner, Tie or not and it helps in Changing the turn 
-	 * Swapping is done in order to change the user turns.
+	 * This method helps in Changing the turn 
+	 * Simple 'if' condition is used in order to change the user turns.
 	 */
 	public static void statistics()
 	{
@@ -172,8 +172,12 @@ public class TicTacToeGame {
 		
 	}//end of method statistics
 	
-	/* UseCase 8 - On Computer getting its turn would like the computer to play like me
-	 * 
+	/* UseCase 8 - On Computer getting its turn would like the computer to play like a human
+	 * UseCase 9 - Next thing to do is check if the Opponent can win then play to block it
+	 * The first 9 sets of 'if...else if..'statements check if a system can win
+	 * Next 9 set of same statements block the opponent if he/she has a chance of winning
+	 * UseCase 10 and 11 - If neither of the players can win, then taking up alternate places like Corners and sides
+	 * First, corners are filled and then center is filed and finaly the sides are taken into consideration
 	 */
 	private static void computerMove() {
 		if((board[1]==' ')&&(board[2]==board[3] && board[2]==computerOption)||(board[4]==board[7] && board[4]==computerOption)||(board[5]==board[9] && board[5]==computerOption))
@@ -253,8 +257,7 @@ public class TicTacToeGame {
 		}			
 		else
 		{
-			//checking for corner values usecase10
-			
+			//UseCase 10 - Checking if corner values are filled or not
 			int flag1 = 0;
 			for(int i=0;i<4;i++)
 			{
@@ -265,7 +268,7 @@ public class TicTacToeGame {
 					break;
 					}
 			}
-			//checking for center and remaining values usecase11
+			//UseCase 11 - Checking for middle spaces and side spaces
 			if(flag1==0 )
 				{
 				if(board[5]==' ')
@@ -286,11 +289,13 @@ public class TicTacToeGame {
 		}//end of main else
 	}
 	
-	// This method defines the conditions for a win
+	/* This method defines the conditions for a win
+	 * The first 'for loop' is defined to check if there is an winning situation and if there is, it returns a character X or O
+	 * The second 'for loop' is to check for a tie,if the match ends in a tie, the method returns character 't' or 'n'.
+	 */
 		public static char getWinner() {
 			String line = null;
-            
-			//to check if there is an winning situation
+			
 	        for (int a = 1; a < 10; a++) 
 	        {
 	           
@@ -343,8 +348,8 @@ public class TicTacToeGame {
 	        		return 'n';
 		}
 		
-		//method to display winner
-		public static void displayWinner()
+		//This is a method created to Identify and display winner
+		public static void identifyWinner()
 		    {
 		    	
 		    	
@@ -366,7 +371,7 @@ public class TicTacToeGame {
 		        }
 		    }
 		
-	//helps in defining the game flow
+	//This method helps in defining the game flow
 	public static void gameFlow() {
 		createBoard();	
 		chooseOption();
@@ -380,15 +385,14 @@ public class TicTacToeGame {
 			{
 				computerMove();
 				showBoard();
-				displayWinner();
+				identifyWinner();
 				turnToPlay='P';
 			}
 			else if(turnToPlay=='P') 
 			{
 				userIndexValue();
 				userMove();
-				displayWinner();
-				//showBoard();
+				identifyWinner();
 				turnToPlay='C';
 				
 			}
