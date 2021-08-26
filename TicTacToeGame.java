@@ -12,6 +12,7 @@ public class TicTacToeGame {
 	public static Random rand = new Random(); // @rand to check if User play's first or Computer using coin tossing
 	public static char turnToPlay; //@turnToPlay to check who is playing - the user or the system
 	public static int flag = 0; //@param flag is used to monitor if the game is starting first time or not
+	public static int count = 0;//@param count is used for monitoring computers move
 	
 	public static int winnerStatus = 0 ;
 	public static int tie = 0 ;
@@ -113,6 +114,8 @@ public class TicTacToeGame {
 				userMove();
 			}
 	 showBoard();
+	 if(count!=0 && board[indexNumber]==' ')
+		 computerMove();
 	}
 	
 	/* UseCase 6 - Asking if the User would like to do a toss to check who plays first.
@@ -147,37 +150,113 @@ public class TicTacToeGame {
 	 */
 	public static void statistics()
 	{
-		if(winnerStatus == 0)
-			System.out.println("Winner: NA");
-		else
-			System.out.println("Winner: ");
-		System.out.println("Tie Games: " + tie);
 		System.out.println("Do you want to change turns? (Y/N):  ");
 		char newUserOption = sc.next().charAt(0); 
 		if(newUserOption == 'y' || newUserOption == 'Y')
 		{
-			if(turnToPlay == 'P')
+			for (int a = 1; a < 9; a++) 
+	        {
+	            String line = null;
+	  
+	            switch (a) { 
+	            case 1:
+	                line = ""+board[1] + board[2] + board[3];
+	                break;
+	            case 2:
+	                line = ""+board[4] + board[5] + board[6];
+	                break;
+	            case 3:
+	                line = ""+board[7] + board[8] + board[9];
+	                break;
+	            case 4:
+	                line = ""+board[1] + board[4] + board[7];
+	                break;
+	            case 5:
+	                line = ""+board[2] + board[5] + board[8];
+	                break;
+	            case 6:
+	                line = ""+board[3] + board[5] + board[9];
+	                break;
+	            case 7:
+	                line = ""+board[1] + board[5] + board[9];
+	                break;
+	            case 8:
+	                line = ""+board[3] + board[5] + board[7];
+	                break;
+	            }
+	            //For  winner
+	            if (line.equals("XXX")||line.equals("OOO")) {
+	                winnerStatus=1;
+	            }
+	              
+	         }
+	        int i=1;
+	        for(i=1;i<board.length;i++)
+	        {
+	        	if(board[i]==' ')
+	        		break;
+	        }
+	        if(i==10)
+	        	tie=1;
+	        if(winnerStatus==1)						//check for winner
 			{
-				turnToPlay ='C';
-				//Swapping userOption and ComputerOption
-				int temp = userOption;
-				userOption = computerOption;
-				computerOption = userOption;
-				showBoard();
+				if(turnToPlay=='C')
+					System.out.println("Computer has won the game.");
+				else
+					System.out.println("Congratulations, You won the game");
 			}
-			else
+			else if(tie==1)								//check for tie
 			{
-				turnToPlay = 'P';
-				//Swapping userOption and ComputerOption
-				int temp = userOption;
-				userOption = computerOption;
-				computerOption = userOption;
-				showBoard();
+				System.out.println( "It's a draw.");
 			}
+			else													//change the turn
+			{
+				if(turnToPlay=='C')
+				{
+					turnToPlay='P';
+					System.out.println("Player's turn to play");
+					userIndexValue();
+					userMove();
+				}
+				else
+				{
+					turnToPlay='C';
+					System.out.println("Computer's turn to play");
+					computerMove();
+				}
+					
+			}
+			
 		}// end of 1st if
 		
 	}//end of method statistics
 	
+	/* UseCase 8 - On Computer getting its turn would like the computer to play like me
+	 * 
+	 */
+	public static void computerMove()
+	{
+		count=1;
+		do {
+			occupyCorner();
+		} while (board[indexNumber]!=' ');
+
+		board[indexNumber] = computerOption;
+		showBoard();
+		userIndexValue();
+		userMove();
+    }    
+        
+	
+
+	private static void occupyCorner() {
+		
+		int[] arr = {1,3,7,9};
+		int corner = rand.nextInt(3);
+		indexNumber = arr[corner];	
+		
+	}
+
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Tic Tac Toe \n");
@@ -189,6 +268,7 @@ public class TicTacToeGame {
 		userIndexValue();
 		userMove();
 		statistics();
+		computerMove();
 	}
 
 }
