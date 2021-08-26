@@ -132,6 +132,7 @@ public class TicTacToeGame {
 		{
 			System.out.println("Player's Turn.");
 			tossWinner = 1;
+			turnToPlay='P';
 
 		}
 		else
@@ -397,10 +398,17 @@ public class TicTacToeGame {
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Tic Tac Toe \n");
-		createBoard();	
-		turnToPlay = 'P'; //Assuming the User starts first
-		winnerStatus=0;
 		gameFlow();
+		//Asking the user if wants to play another game - UC13
+		System.out.println("Want to start a new game?(Y/N) ");
+		char newGame = sc.next().charAt(0); 
+		if(newGame=='Y' || newGame=='y')
+		{
+			winnerStatus=0;
+			gameFlow();
+		}
+		else
+			System.exit(0);		
 	}
 
 }
