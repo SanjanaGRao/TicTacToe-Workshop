@@ -174,87 +174,62 @@ public class TicTacToeGame {
 	
 	/* UseCase 8 - On Computer getting its turn would like the computer to play like a human
 	 * UseCase 9 - Next thing to do is check if the Opponent can win then play to block it
-	 * The first 9 sets of 'if...else if..'statements check if a system can win
+	 * The first 9 sets of relational operators and logical operators are statements to check if a system can win
 	 * Next 9 set of same statements block the opponent if he/she has a chance of winning
 	 * UseCase 10 and 11 - If neither of the players can win, then taking up alternate places like Corners and sides
-	 * First, corners are filled and then center is filed and finaly the sides are taken into consideration
+	 * First, corners are filled and then center is filed and finally the sides are taken into consideration
 	 */
 	private static void computerMove() {
-		if((board[1]==' ')&&(board[2]==board[3] && board[2]==computerOption)||(board[4]==board[7] && board[4]==computerOption)||(board[5]==board[9] && board[5]==computerOption))
+		//UC8 and UC9 To block user from winning and to play like human
+		if(((board[1]==' ')&&(board[2]==board[3] && board[2]==computerOption)||(board[4]==board[7] && board[4]==computerOption)||(board[5]==board[9] && board[5]==computerOption)) ||
+		    (board[1]==' ')&&((board[2]==board[3]&&board[2]==userOption)||(board[4]==board[7]&&board[4]==userOption)||(board[5]==board[9]&&board[5]==userOption)))
 		{
 			board[1] = computerOption;
 			
 		}
-		else if((board[2]==' ')&&(board[1]==board[3] && board[1]==computerOption)||(board[5]==board[8] && board[8]==computerOption))
+		else if(((board[2]==' ')&&(board[1]==board[3] && board[1]==computerOption)||(board[5]==board[8] && board[8]==computerOption)) ||
+				 (board[2]==' ')&&((board[1]==board[3]&&board[3]==userOption)||(board[5]==board[8]&&board[8]==userOption)))
 		{
 			board[2] = computerOption;
 		}
-		else if((board[3]==' ')&&(board[2]==board[1] && board[2]==computerOption)||(board[5]==board[7] && board[5]==computerOption)||(board[6]==board[9] && board[6]==computerOption))
+		else if(((board[3]==' ')&&(board[2]==board[1] && board[2]==computerOption)||(board[5]==board[7] && board[5]==computerOption)||(board[6]==board[9] && board[6]==computerOption)) ||
+				 (board[3]==' ')&&((board[1]==board[2]&&board[2]==userOption)||(board[6]==board[9]&&board[9]==userOption)||(board[5]==board[7]&&board[7]==userOption)))
 		{
 			board[3] = computerOption;		
 		}
-		else if((board[4]==' ')&&(board[1]==board[7] && board[1]==computerOption)||(board[5]==board[6] && board[5]==computerOption))
+		else if(((board[4]==' ')&&(board[1]==board[7] && board[1]==computerOption)||(board[5]==board[6] && board[5]==computerOption)) ||
+				 (board[4]==' ')&&((board[1]==board[7]&&board[7]==userOption)||(board[5]==board[6]&&board[6]==userOption)))
 		{
 			board[4] = computerOption;	
 		}
-		else if((board[5]==' ')&&(board[2]==board[8] && board[2]==computerOption)||(board[4]==board[6] && board[4]==computerOption)||(board[1]==board[9] && board[9]==computerOption)||(board[7]==board[3] && board[3]==computerOption))
+		else if(((board[5]==' ')&&(board[2]==board[8] && board[2]==computerOption)||(board[4]==board[6] && board[4]==computerOption)||(board[1]==board[9] && board[9]==computerOption)||(board[7]==board[3] && board[3]==computerOption)) ||
+				 (board[5]==' ')&&((board[1]==board[9]&&board[1]==userOption)||(board[7]==board[3]&&board[7]==userOption)||(board[2]==board[8]&&board[8]==userOption)||(board[4]==board[6]&&board[6]==userOption)))
+				
 		{
 			board[5] = computerOption;	
 		}
-		else if((board[6]==' ')&&(board[9]==board[3] && board[3]==computerOption)||(board[4]==board[5] && board[4]==computerOption))
+		else if(((board[6]==' ')&&(board[9]==board[3] && board[3]==computerOption)||(board[4]==board[5] && board[4]==computerOption)) ||
+				 (board[6]==' ')&&((board[9]==board[3]&&board[3]==userOption)||(board[5]==board[4]&&board[4]==userOption)))
+				
 		{
 			board[6] = computerOption;	
 		}
-		else if((board[7]==' ')&&(board[1]==board[4] && board[1]==computerOption)||(board[5]==board[3] && board[3]==computerOption)||(board[8]==board[9] && board[9]==computerOption))
+		else if(((board[7]==' ')&&(board[1]==board[4] && board[1]==computerOption)||(board[5]==board[3] && board[3]==computerOption)||(board[8]==board[9] && board[9]==computerOption)) ||
+				 (board[7]==' ')&&((board[1]==board[4]&&board[4]==userOption)||(board[8]==board[9]&&board[9]==userOption)||(board[5]==board[3]&&board[3]==userOption)))
+				
 		{
 			board[7] = computerOption;	
 		}
-		else if((board[8]==' ')&&(board[2]==board[5] && board[2]==computerOption)||(board[9]==board[7] && board[7]==computerOption))
+		else if(((board[8]==' ')&&(board[2]==board[5] && board[2]==computerOption)||(board[9]==board[7] && board[7]==computerOption)) ||
+				 (board[8]==' ')&&((board[9]==board[7]&&board[7]==userOption)||(board[2]==board[5]&&board[2]==userOption)))
 		{
 			board[8] = computerOption;	
 		}
-		else if((board[9]==' ')&&(board[6]==board[3] && board[3]==computerOption)||(board[8]==board[7] && board[7]==computerOption)||(board[5]==board[1] && board[5]==computerOption))
+		else if(((board[9]==' ')&&(board[6]==board[3] && board[3]==computerOption)||(board[8]==board[7] && board[7]==computerOption)||(board[5]==board[1] && board[5]==computerOption)) ||
+				 (board[9]==' ')&&((board[1]==board[5]&&board[5]==userOption)||(board[6]==board[3]&&board[3]==userOption)||(board[8]==board[7]&&board[7]==userOption)))
 		{
 			board[9] = computerOption;	
-		}
-		
-		//UC9 - To block user from winning
-		else if((board[1]==' ')&&((board[2]==board[3]&&board[2]==userOption)||(board[4]==board[7]&&board[4]==userOption)||(board[5]==board[9]&&board[5]==userOption)))
-		{
-			board[1]=computerOption;
-		}			
-		else if((board[2]==' ')&&((board[1]==board[3]&&board[3]==userOption)||(board[5]==board[8]&&board[8]==userOption)))
-		{
-			board[2]=computerOption;
-		}				
-		else if((board[3]==' ')&&((board[1]==board[2]&&board[2]==userOption)||(board[6]==board[9]&&board[9]==userOption)||(board[5]==board[7]&&board[7]==userOption)))				
-		{
-			board[3]=computerOption;
-		}
-		else if((board[4]==' ')&&((board[1]==board[7]&&board[7]==userOption)||(board[5]==board[6]&&board[6]==userOption)))
-		{
-			board[4]=computerOption;
-		}
-		else if((board[5]==' ')&&((board[1]==board[9]&&board[1]==userOption)||(board[7]==board[3]&&board[7]==userOption)||(board[2]==board[8]&&board[8]==userOption)||(board[4]==board[6]&&board[6]==userOption)))	
-		{
-			board[5]=computerOption;
-		}
-		else if((board[6]==' ')&&((board[9]==board[3]&&board[3]==userOption)||(board[5]==board[4]&&board[4]==userOption)))	
-		{
-			board[6]=computerOption;
-		}
-		else if((board[7]==' ')&&((board[1]==board[4]&&board[4]==userOption)||(board[8]==board[9]&&board[9]==userOption)||(board[5]==board[3]&&board[3]==userOption)))
-		{
-			board[7]=computerOption;
-		}
-		else if((board[8]==' ')&&((board[9]==board[7]&&board[7]==userOption)||(board[2]==board[5]&&board[2]==userOption)))		
-		{
-			board[8]=computerOption;
-		}
-		else if((board[9]==' ')&&((board[1]==board[5]&&board[5]==userOption)||(board[6]==board[3]&&board[3]==userOption)||(board[8]==board[7]&&board[7]==userOption)))
-		{
-			board[9]=computerOption;
-		}			
+		}		
 		else
 		{
 			//UseCase 10 - Checking if corner values are filled or not
